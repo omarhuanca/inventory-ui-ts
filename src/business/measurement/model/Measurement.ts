@@ -1,9 +1,9 @@
-export class Coin {
-    static COIN_USD = "USD";
-    static COIN_BS = "BS";
+export class Measurement {
+    static CODE_DOC = "DOC";
+    static CODE_PZA = "PZA";
 
     private code: string;
-
+    
     constructor(code: string){
         this.code = code;
     }

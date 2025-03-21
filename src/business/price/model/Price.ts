@@ -4,9 +4,9 @@ export class Price {
     private value: number;
     private coin: Coin;
 
-    constructor(potentialValue: number, potentialCoin: Coin){
-        this.value = potentialValue;
-        this.coin = potentialCoin;
+    constructor(value: number, coin: Coin){
+        this.value = value;
+        this.coin = coin;
     }
 
     getValue(){

@@ -1,10 +1,10 @@
-import { AxiosError } from "../../../../node_modules/axios/index"
-import { client } from "./lineClient";
-import { LineAPI } from "./LineAPI";
+import { AxiosError } from "../../../../node_modules/axios/index";
+import { LineAPI } from "../dto/LineAPI";
+import { lineClient } from "./lineClient";
 
 export const getLines = async (): Promise<LineAPI[]> => {
     try {
-        const { data } = await client.get()
+        const { data } = await lineClient.get('?_limit=6')
 
         return data
     } catch(error) {

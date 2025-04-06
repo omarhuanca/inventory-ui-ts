@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { LineAPI } from "../api/LineAPI";
 import { getLines } from "../api/lineFetch";
+import { LineAPI } from "../dto/LineAPI";
 
 export const LineComponent = () => {
 

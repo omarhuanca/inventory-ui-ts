@@ -4,7 +4,7 @@ import { lineClient } from "./lineClient";
 
 export const getLines = async (): Promise<LineAPI[]> => {
     try {
-        const { data } = await lineClient.get('?_limit=6')
+        const { data } = await lineClient.get('?limit=6')
 
         return data
     } catch(error) {

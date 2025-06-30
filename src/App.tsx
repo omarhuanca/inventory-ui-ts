@@ -1,24 +1,9 @@
-import { useState } from 'react'
 import './App.css'
-import { LineComponent } from './business/line/component/LineComponent'
+import ProductList from './business/product/api/ProductList'
 
-type Action = "get"
+function App() {
+  return <ProductList />;
 
-const App = () => {
-  const [action] = useState<Action>("get")
-
-  const showActionComponent = () => {
-    switch (action) {
-      case "get": return <LineComponent />
-    }
-    
-  }
-
-  return (
-    <div>
-    {showActionComponent()}
-    </div>
-  )
 }
 
 export default App

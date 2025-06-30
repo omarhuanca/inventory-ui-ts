@@ -1,14 +1,10 @@
-import { Measurement } from "../../measurement/model/Measurement";
-
 export class Stock {   
     static INVALID_VALUE = "INVALID VALUD";
 
     private value: number;
-    private measurement: Measurement;
 
-    constructor(value: number, measurement: Measurement){
+    constructor(value: number){
         this.value = value;
-        this.measurement = measurement;
     }
 
     getValue(): number {
@@ -17,10 +13,6 @@ export class Stock {
 
     setValue(potentialValue: number) {
         this.value = potentialValue;
-    }
-
-    getMeasurement(): Measurement {
-        return this.measurement;
     }
 
     verifyGreaterStock(potentialValue: number): boolean {

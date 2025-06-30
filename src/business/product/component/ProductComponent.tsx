@@ -3,9 +3,14 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
+import { ProductAPI } from '../dto/ProductAPI';
 
-export default function ProductCard({ product }) {
-  return (
+interface Props {
+  product: ProductAPI;
+}
+
+const ProductCard: React.FC<Props> = ({ product })  => {
+  return ( 
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <CardMedia
@@ -22,13 +27,15 @@ export default function ProductCard({ product }) {
           {product.description}
         </Typography>
         <Typography variant="body2">
-          {product.priceSale} {product.coin.code}
+          Precio {product.priceSale} {product.coin.code}
         </Typography>
         <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
-          disponible {product.stock} {product.measurement.code} 
+          Disponible {product.stock} {product.measurement.code}
         </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
   );
 }
+
+export default ProductCard;

@@ -1,7 +1,7 @@
 import { Provider } from "../../provider/model/Provider";
 import { Line } from "../../line/model/Line";
-import { Price } from "../../price/model/Price";
-import { Stock } from "../../stock/model/Stock";
+import { Measurement } from "../../measurement/model/Measurement";
+import { Coin } from "../../coin/model/Coin";
 
 export class Product {
     static CODE_PLATE = "PLA-1";
@@ -9,18 +9,22 @@ export class Product {
 
     private code: string;
     private description: string;
-    private stock: Stock;
-    private priceCost: Price;
-    private priceSale: Price;
+    private stock: number;
+    private measurement: Measurement;
+    private priceCost: number;
+    private priceSale: number;
+    private coin: Coin;
     private line: Line;
     private provider: Provider;
 
-    constructor(code: string, description: string, stock: Stock, priceCost: Price, priceSale: Price, line: Line, provider: Provider){
+    constructor(code: string, description: string, stock: number, measurement: Measurement, priceCost: number, priceSale: number, coin: Coin, line: Line, provider: Provider){
         this.code = code;
         this.description = description;
         this.stock = stock;
+        this.measurement = measurement;
         this.priceCost = priceCost;
         this.priceSale = priceSale;
+        this.coin = coin;
         this.line = line;
         this.provider = provider;
     }
@@ -33,16 +37,24 @@ export class Product {
         return this.description;
     }
 
-    getStock(): Stock {
+    getStock(): number {
         return this.stock;
     }
 
-    getPriceCost(): Price {
+    getMeasurement(): Measurement {
+        return this.measurement;
+    }
+
+    getPriceCost(): number {
         return this.priceCost;
     }
 
-    getPriceSale(): Price {
+    getPriceSale(): number {
         return this.priceSale;
+    }
+
+    getCoin(): Coin {
+        return this.coin;
     }
 
     getLine(): Line {

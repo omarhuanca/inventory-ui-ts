@@ -16,7 +16,7 @@ const ProductCard: React.FC<Props> = ({ product })  => {
         <CardMedia
           component="img"
           height="280"
-          image="src/assets/defaultImageProduct.jpg"
+          image="/assets/defaultImageProduct.jpg"
           alt="green iguana"
         />
         <CardContent>

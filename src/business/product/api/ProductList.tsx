@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import ProductClient from './ProductClient';
 import ProductComponent from '../component/ProductComponent';
 import Box from '@mui/material/Box';

@@ -10,6 +10,7 @@ export interface ProductAPI {
     measurement: MeasurementAPI;
     priceCost: number;
     priceSale: number;
+    imageBase64: string;
     coin: CoinAPI;
     line: LineAPI;
     provider: ProviderAPI;

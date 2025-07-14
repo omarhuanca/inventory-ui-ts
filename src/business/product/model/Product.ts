@@ -14,10 +14,11 @@ export class Product {
     private priceCost: number;
     private priceSale: number;
     private coin: Coin;
+    private imageBase64: string;
     private line: Line;
     private provider: Provider;
 
-    constructor(code: string, description: string, stock: number, measurement: Measurement, priceCost: number, priceSale: number, coin: Coin, line: Line, provider: Provider){
+    constructor(code: string, description: string, stock: number, measurement: Measurement, priceCost: number, priceSale: number, coin: Coin, imageBase64: string, line: Line, provider: Provider){
         this.code = code;
         this.description = description;
         this.stock = stock;
@@ -25,6 +26,7 @@ export class Product {
         this.priceCost = priceCost;
         this.priceSale = priceSale;
         this.coin = coin;
+        this.imageBase64 = imageBase64;
         this.line = line;
         this.provider = provider;
     }
@@ -55,6 +57,10 @@ export class Product {
 
     getCoin(): Coin {
         return this.coin;
+    }
+
+    getImageBase64(): string {
+        return this.imageBase64;
     }
 
     getLine(): Line {

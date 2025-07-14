@@ -30,9 +30,6 @@ const ProductCard: React.FC<Props> = ({ product })  => {
         <Typography variant="body2">
           Precio {product.priceSale} {product.coin.code}
         </Typography>
-        <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>
-          Disponible {product.stock} {product.measurement.code}
-        </Typography>
         </CardContent>
       </CardActionArea>
     </Card>

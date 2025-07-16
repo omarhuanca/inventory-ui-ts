@@ -28,7 +28,7 @@ const ProductCard: React.FC<Props> = ({ product })  => {
           {product.description}
         </Typography>
         <Typography variant="body2">
-          Precio {product.priceSale} {product.coin.code}
+          Precio {product.priceSale} {product.coin.code} / {product.measurement.code}
         </Typography>
         </CardContent>
       </CardActionArea>

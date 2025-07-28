@@ -11,7 +11,7 @@ interface Props {
 
 const ProductCard: React.FC<Props> = ({ product })  => {
   return ( 
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, width: '100%' }}>
       <CardActionArea>
         <CardMedia
           component="img"

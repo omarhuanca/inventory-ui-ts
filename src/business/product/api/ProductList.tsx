@@ -64,6 +64,10 @@ const ProductList = () => {
     if (error)
       return <div className="p-6 text-red-600">Error: {error}</div>
 
+    const productFilter = products.filter(product =>
+      product.description.toLowerCase().includes(query.toLowerCase())
+    );
+
     return (
         <Container sx={{ mt: 4 }}>
           <Box mb={2}>
@@ -86,8 +90,8 @@ const ProductList = () => {
             }}
             />
             <Grid container spacing={3}>
-              {products.map((product, index) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+              {productFilter.map((product, index) => (
+                <Grid item xs={12} key={index}>
                   <ProductComponent key={index} product={product} />
                 </Grid>
               ))}

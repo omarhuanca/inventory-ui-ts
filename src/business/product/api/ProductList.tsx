@@ -89,9 +89,9 @@ const ProductList = () => {
               )
             }}
             />
-            <Grid container spacing={3}>
+            <Grid container spacing={3} sx={{ mt: 1, minHeight: '400px' }}>
               {productFilter.map((product, index) => (
-                <Grid item xs={12} key={index}>
+                <Grid item key={index}>
                   <ProductComponent key={index} product={product} />
                 </Grid>
               ))}

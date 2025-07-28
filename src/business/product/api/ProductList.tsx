@@ -3,46 +3,96 @@ import ProductClient from './ProductClient';
 import ProductComponent from '../component/ProductComponent';
 import Box from '@mui/material/Box';
 import { ProductAPI } from '../dto/ProductAPI';
-
+import { TextField, InputAdornment, Typography, Grid, Container } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 const ProductList = () => {
     const [products, setProducts] = useState<ProductAPI[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
+    const [query, setQuery] = useState("");
 
+    // Fetch all products on mount
     useEffect(() => {
-        ProductClient.get<ProductAPI[]>('v1/products')
-          .then(response => {
-            setProducts(response.data);
-            setLoading(false);
-          })
-          .catch(error => {
-            setError(error.message || 'Unknow error');
-            setLoading(false);
-          })
+      fetchProducts();
     }, []);
 
+    // Debounced search by description
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        if (query.trim() === "") {
+          fetchProducts();
+        } else {
+          searchProducts(query);
+        }
+      }, 400);
+
+      return () => clearTimeout(timer);
+    }, [query]);
+
+    const fetchProducts = () => {
+      setLoading(true);
+      ProductClient.get<ProductAPI[]>("v1/products")
+        .then((response) => {
+          setProducts(response.data);
+          setError(undefined);
+        })
+        .catch((error) => {
+          setError(error.message || "Unknown error");
+        })
+        .finally(() => setLoading(false));
+    };
+
+    const searchProducts = (desc: string) => {
+      setLoading(true);
+      ProductClient.get<ProductAPI[]>("v1/products/searchByDescription", {
+        params: { criteria: desc }
+      })
+        .then((response) => {
+          setProducts(response.data);
+          setError(undefined);
+        })
+        .catch((error) => {
+          setError(error.message || "Unknown error");
+        })
+        .finally(() => setLoading(false));
+    };
+
+
     if (loading)
-      return <div className="p-6">Loading products....</div>
+      return <div className="p-6">Leendo productos .... </div>
     if (error)
       return <div className="p-6 text-red-600">Error: {error}</div>
 
     return (
-        <div className="min-h-screen bg-gray-100 p-6">
-          <h1 className="text-3xl font-bold mb-6">Productos</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <Box sx={{
-              width: '100%',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(min(200px, 100%), 1fr))',
-              gap: 2,
-            }}>
+        <Container sx={{ mt: 4 }}>
+          <Box mb={2}>
+              <Typography variant="h5" component="h1" gutterBottom>
+                Lista de Productos
+              </Typography>
+          </Box>
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder="Buscar por descripción"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon color="action"/>
+                </InputAdornment>
+              )
+            }}
+            />
+            <Grid container spacing={3}>
               {products.map((product, index) => (
-                <ProductComponent key={index} product={product} />
+                <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                  <ProductComponent key={index} product={product} />
+                </Grid>
               ))}
-            </Box>
-          </div>
-        </div>
+            </Grid>
+        </Container>
     )
 };
 

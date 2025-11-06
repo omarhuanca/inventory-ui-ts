@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import { ProductAPI } from '../dto/ProductAPI';
 import { TextField, InputAdornment, Typography, Grid, Container } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import Footer from '../../../page/Footer';
 
 const ProductList = () => {
     const [products, setProducts] = useState<ProductAPI[]>([]);
@@ -88,14 +89,15 @@ const ProductList = () => {
                 </InputAdornment>
               )
             }}
-            />
-            <Grid container spacing={3} sx={{ mt: 1, minHeight: '400px' }}>
-              {productFilter.map((product, index) => (
-                <Grid item key={index}>
-                  <ProductComponent key={index} product={product} />
-                </Grid>
-              ))}
-            </Grid>
+          />
+          <Grid container spacing={3} sx={{ mt: 1, minHeight: '400px' }}>
+            {productFilter.map((product, index) => (
+              <Grid item key={index}>
+                <ProductComponent key={index} product={product} />
+              </Grid>
+            ))}
+          </Grid>
+          <Footer/>
         </Container>
     )
 };

@@ -6,29 +6,41 @@ import { ProductAPI } from '../dto/ProductAPI';
 import { TextField, InputAdornment, Typography, Grid, Container } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-const ProductList = () => {
+type Props = {
+    selectedLine: string;
+};
+
+const ProductList = ({ selectedLine }: Props) => {
     const [products, setProducts] = useState<ProductAPI[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
     const [query, setQuery] = useState("");
 
-    // Fetch all products on mount
     useEffect(() => {
-      fetchProducts();
-    }, []);
+      if (selectedLine.trim() === "") {
+        fetchProducts();
+        return;
+      }
 
-    // Debounced search by description
+      filterProductsByLine(selectedLine);
+    }, [selectedLine]);
+
     useEffect(() => {
       const timer = setTimeout(() => {
         if (query.trim() === "") {
-          fetchProducts();
+          if (selectedLine.trim() === "") {
+            fetchProducts();
+            return;
+          }
+
+          filterProductsByLine(selectedLine);
         } else {
           searchProducts(query);
         }
       }, 400);
 
       return () => clearTimeout(timer);
-    }, [query]);
+    }, [query, selectedLine]);
 
     const fetchProducts = () => {
       setLoading(true);
@@ -48,6 +60,19 @@ const ProductList = () => {
       ProductClient.get<ProductAPI[]>("v1/products/searchByDescription", {
         params: { criteria: desc }
       })
+        .then((response) => {
+          setProducts(response.data);
+          setError(undefined);
+        })
+        .catch((error) => {
+          setError(error.message || "Unknown error");
+        })
+        .finally(() => setLoading(false));
+    };
+
+    const filterProductsByLine = (line: string) => {
+      setLoading(true);
+      ProductClient.get<ProductAPI[]>(`v1/products/filterByNameLine/${encodeURIComponent(line)}`)
         .then((response) => {
           setProducts(response.data);
           setError(undefined);

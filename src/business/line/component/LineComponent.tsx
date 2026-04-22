@@ -1,30 +1,38 @@
-import { useEffect, useState } from "react"
-import { getLines } from "../api/lineFetch";
-import { LineAPI } from "../dto/LineAPI";
+import { useEffect, useState } from "react";
+import { FormControl, MenuItem, Select } from "@mui/material";
+import ProductClient from "../../product/api/ProductClient";
+import {LineAPI} from "../dto/LineAPI.ts";
 
-export const LineComponent = () => {
+type Props = {
+  selectedLine: string;
+  onSelectLine: (line: string) => void;
+};
 
-    const [lines, setPosts] = useState<LineAPI[]>([])
+const LineComponent = ({ selectedLine, onSelectLine }: Props) => {
+  const [lines, setLines] = useState<LineAPI[]>([]);
 
-    useEffect(() => {
+  useEffect(() => {
+    ProductClient.get<LineAPI[]>("v1/lines")
+      .then((res) => setLines(res.data))
+      .catch((err) => console.error(err));
+  }, []);
 
-        getLines().then(data => setPosts(data));
+  return (
+    <FormControl size="small" sx={{ minWidth: 220 }}>
+      <Select
+        value={selectedLine}
+        onChange={(e) => onSelectLine(e.target.value)}
+        displayEmpty
+      >
+        <MenuItem value="">Todas </MenuItem>
+        {lines.map((line) => (
+          <MenuItem key={line.id} value={line.name}>
+            {line.name}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  );
+};
 
-    }, [])
-
-    return (
-        <>
-            <h1> Lista de lineas </h1>
-
-            <div>
-            {
-                lines.map(line => (
-                    <div key={line.id}>
-                        <p><span>{line.name}</span></p>
-                    </div>
-                ))
-            }
-            </div>
-        </>
-    )
-}
+export default LineComponent;

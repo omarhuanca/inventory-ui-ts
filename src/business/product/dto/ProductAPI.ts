@@ -1,5 +1,6 @@
 import { CoinAPI } from "../../coin/dto/CoinAPI";
 import { MeasurementAPI } from "../../measurement/dto/MeasurementAPI";
+import {LineAPI} from "../../line/dto/LineAPI.ts";
 
 export interface ProductAPI {
     code: string;
@@ -8,4 +9,5 @@ export interface ProductAPI {
     priceSale: number;
     imageBase64: string;
     coin: CoinAPI;
+    line: LineAPI;
   };

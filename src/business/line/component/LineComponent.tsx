@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { FormControl, MenuItem, Select } from "@mui/material";
+import { NavLink } from "react-router-dom";
 import ProductClient from "../../product/api/ProductClient";
-import {LineAPI} from "../dto/LineAPI.ts";
+import { LineAPI } from "../dto/LineAPI.ts";
 
 type Props = {
   selectedLine: string;
@@ -18,20 +18,30 @@ const LineComponent = ({ selectedLine, onSelectLine }: Props) => {
   }, []);
 
   return (
-    <FormControl size="small" sx={{ minWidth: 220 }}>
-      <Select
-        value={selectedLine}
-        onChange={(e) => onSelectLine(e.target.value)}
-        displayEmpty
-      >
-        <MenuItem value="">Todas </MenuItem>
+    <nav aria-label="Lineas">
+      <ul className="line-nav">
+        <li>
+          <NavLink
+            to="/"
+            className={selectedLine === "" ? "active" : undefined}
+            onClick={() => onSelectLine("")}
+          >
+            Todas
+          </NavLink>
+        </li>
         {lines.map((line) => (
-          <MenuItem key={line.id} value={line.name}>
-            {line.name}
-          </MenuItem>
+          <li key={line.id}>
+            <NavLink
+              to={`/?line=${encodeURIComponent(line.name)}`}
+              className={selectedLine === line.name ? "active" : undefined}
+              onClick={() => onSelectLine(line.name)}
+            >
+              {line.name}
+            </NavLink>
+          </li>
         ))}
-      </Select>
-    </FormControl>
+      </ul>
+    </nav>
   );
 };
 

@@ -40,3 +40,32 @@
 .read-the-docs {
   color: #888;
 }
+
+.line-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.line-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  color: #24292f;
+  text-decoration: none;
+  background: #ffffff;
+}
+
+.line-nav a:hover,
+.line-nav a.active {
+  border-color: #1976d2;
+  color: #ffffff;
+  background: #1976d2;
+}
